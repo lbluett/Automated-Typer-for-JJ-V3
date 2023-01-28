@@ -1,29 +1,47 @@
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import javafx.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public class Main {
+import javafx.application.Application;
+import javafx.event.Event;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.scene.Scene;
+import javafx.event.EventHandler;
+
+public class Main extends Application implements EventHandler<ActionEvent> {
+    Button begin;
+    Functionality program = new Functionality();
+
+
     public static void main(String[] args) throws InterruptedException {
-        // Run threads when program is running.
-        String text = "I love A";
-        StringSelection stringSelection = new StringSelection(text);
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(stringSelection, stringSelection);
+        launch(args);
+    }
 
-        Robot robot = null;
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            throw new RuntimeException(e); // TODO: tell user their device isn't compatible
+    @Override
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("JJBotv3 by InfamousTurtle");
+        begin = new Button();
+        begin.setText("Begin");
+
+        begin.setOnAction(this); // whenever clicked, use this class - see tute 2, can make custom class?
+
+        StackPane layout = new StackPane(); // customise layout
+        layout.getChildren().add(begin);
+
+        Scene scene = new Scene(layout, 300, 250);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @Override
+    public void handle(ActionEvent actionEvent) {
+        if (actionEvent.getSource()==begin) {
+            program.runner(1, 10);
         }
-
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        System.out.println("Hello world!");
-
 
     }
 }
