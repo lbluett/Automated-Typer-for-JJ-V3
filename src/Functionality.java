@@ -17,9 +17,8 @@ public class Functionality {
         }
 
         for (int i = start; i <= end; i++) {
-            typeKeys(robot, "Hello");
+            typeKeys(robot, "Hello A");
         }
-
     }
 
     public void typeKeys(Robot robot, String text) {
@@ -27,6 +26,7 @@ public class Functionality {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, stringSelection);
 
+        // Paste* the clipboard.
         robot.keyPress(KeyEvent.VK_CONTROL); // TODO: Mac Friendly VK_MISC
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
