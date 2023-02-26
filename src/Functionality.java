@@ -17,7 +17,13 @@ public class Functionality {
         }
 
         for (int i = start; i <= end; i++) {
-            typeKeys(robot, "Hello A");
+
+            typeKeys(robot, EnglishNumberToWords.convert(i));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

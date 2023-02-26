@@ -46,19 +46,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-            ExecutorService typerThread = Executors.newSingleThreadExecutor();
-            typerThread.execute(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        typer.runner(1, 10);
-                                    }
-                                });
-
-
-            typerThread.shutdown();
-
-
+            typer.runner(1, 10);
         }
 
     }
