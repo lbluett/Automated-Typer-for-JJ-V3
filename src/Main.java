@@ -14,16 +14,19 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.Scene;
 import javafx.event.EventHandler;
 
+import javax.swing.*;
+
 public class Main extends Application implements EventHandler<ActionEvent> {
     Button begin;
-    Functionality typer = new Functionality();
+    Functionality typer;
 
     public static void main(String[] args) throws InterruptedException {
         launch(args);
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
+
         stage.setTitle("JJBotv3 by InfamousTurtle");
         begin = new Button();
         begin.setText("Begin");
@@ -40,14 +43,23 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        if (actionEvent.getSource()==begin) {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            typer.runner(1, 10);
+        if (actionEvent.getSource() == begin) {
+            begin.setDisable(true);
+            typer = new Functionality(1,10);
+            Thread th = new Thread(typer);
+            th.setDaemon(true);
+            th.start();
+
+
+            // Once finished, re-enable button.
+            typer.setOnSucceeded(test ->
+                {begin.setDisable(false);});
+            System.out.println(th.isAlive());
         }
+
+        // TODO: I can suspend/unsuspend thread - maybe not the best implementation
+        // or I can pause, kill thread, store the value it was up to, and start from there
+
 
     }
 }
