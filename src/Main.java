@@ -18,6 +18,7 @@ import javax.swing.*;
 
 public class Main extends Application implements EventHandler<ActionEvent> {
     Button begin;
+    TextField start;
     Functionality typer;
 
     public static void main(String[] args) throws InterruptedException {
@@ -30,8 +31,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         stage.setTitle("JJBotv3 by InfamousTurtle");
         begin = new Button();
         begin.setText("Begin");
-
         begin.setOnAction(this); // whenever clicked, use this class - see tute 2, can make custom class?
+
+        start = new TextField();
+
 
         StackPane layout = new StackPane(); // customise layout
         layout.getChildren().add(begin);
@@ -57,6 +60,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
             System.out.println(th.isAlive());
         }
 
+
         // TODO: I can suspend/unsuspend thread - maybe not the best implementation
         // or I can pause, kill thread, store the value it was up to, and start from there
 
@@ -69,3 +73,14 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 // GUI (running on parent thread essentially) -> spawn new functionality thread, and wait until that thread dies
 // when it dies, make start button usable again.
 // cannot do this at then the gui will not be interactable, just grey out the thing somehow until done
+
+// The object stores the current jack that its at, only starts again when you press cancel and press
+// start again - otherwise the button is just play/pause
+
+// Start, Pause, Resume, Cancel
+// Can only cancel when paused
+
+
+// Does the iteration of the current variable get saved when I kill the thread?
+
+// Stop and Cancel both kill thread - cancel just resets the current variable to start.

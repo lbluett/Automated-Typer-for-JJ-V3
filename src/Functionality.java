@@ -12,9 +12,12 @@ public class Functionality extends Task<Long> {
 
     private int start;
     private int end;
+
+    private int current; // Used to measure the current? Kill thread, resume from current?
     public Functionality(int start, int end) {
         this.start = start;
         this.end = end;
+        this.start = current;
     }
 
     public void setStart(int start) {
@@ -25,7 +28,7 @@ public class Functionality extends Task<Long> {
         this.end = end;
     }
 
-    public void runner(int start, int end) {
+    public void runner() {
         System.out.println(start + " " + end);
         Robot robot = null;
         try {
@@ -34,7 +37,7 @@ public class Functionality extends Task<Long> {
             throw new RuntimeException(e); // TODO: tell user their device isn't compatible
         }
 
-        for (int i = start; i <= end; i++) {
+        for (int i = current; i <= end; i++) {
 
             typeKeys(robot, EnglishNumberToWords.convert(i));
             try {
@@ -79,7 +82,6 @@ public class Functionality extends Task<Long> {
         robot.keyPress(KeyEvent.VK_SPACE);
         wait(100);
         robot.keyRelease(KeyEvent.VK_SPACE);
-
     }
 
     @Override
@@ -90,7 +92,7 @@ public class Functionality extends Task<Long> {
             throw new RuntimeException(e);
         }
         System.out.println("hello");
-        runner(this.start, this.end);
+        runner();
         return null;
     }
 }
