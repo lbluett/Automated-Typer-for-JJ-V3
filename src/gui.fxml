@@ -45,7 +45,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -68,11 +68,11 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Button fx:id="startButton" defaultButton="true" layoutX="97.0" layoutY="254.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="117.0" text="Start" />
-                <Button disable="true" layoutX="268.0" layoutY="254.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="117.0" text="Stop" />
-                <Button disable="true" layoutX="439.0" layoutY="254.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="117.0" text="Cancel" />
-                <TextField fx:id="start" layoutX="166.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="Start" />
-                <TextField layoutX="385.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="Stop" />
+                <Button fx:id="startButton" defaultButton="true" layoutX="97.0" layoutY="254.0" mnemonicParsing="false" onAction="#startClicked" prefHeight="56.0" prefWidth="117.0" text="Start" />
+                <Button fx:id="stopButton" disable="true" layoutX="268.0" layoutY="254.0" mnemonicParsing="false" onAction="#stopClicked" prefHeight="56.0" prefWidth="117.0" text="Stop" />
+                <Button fx:id="cancelButton" disable="true" layoutX="439.0" layoutY="254.0" mnemonicParsing="false" onAction="#cancelClicked" prefHeight="56.0" prefWidth="117.0" text="Cancel" />
+                <TextField fx:id="startField" accessibleText="Enter the starting value, &gt;= 1." layoutX="166.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="Start" />
+                <TextField fx:id="endField" layoutX="385.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="End" />
                 <Text layoutX="263.0" layoutY="217.0" stroke="#b21d1d" strokeType="OUTSIDE" strokeWidth="0.0" text="Twenty Five">
                     <font>
                         <Font size="21.0" />

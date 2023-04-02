@@ -1,22 +1,17 @@
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import javafx.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import javafx.application.Application;
-import javafx.event.Event;
-import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.scene.Scene;
-import javafx.event.EventHandler;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
 
-import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 
-public class Main extends Application implements EventHandler<ActionEvent> {
+public class Main extends Application {
     Button begin;
     TextField start;
     Functionality typer;
@@ -26,45 +21,25 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("gui.fxml"));
 
         stage.setTitle("JJBotv3 by InfamousTurtle");
-        begin = new Button();
-        begin.setText("Begin");
-        begin.setOnAction(this); // whenever clicked, use this class - see tute 2, can make custom class?
-
-        start = new TextField();
-
-
-        StackPane layout = new StackPane(); // customise layout
-        layout.getChildren().add(begin);
-
-        Scene scene = new Scene(layout, 300, 250);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root, 600,400));
         stage.show();
-    }
-
-    @Override
-    public void handle(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == begin) {
-            begin.setDisable(true);
-            typer = new Functionality(1,10);
-            Thread th = new Thread(typer);
-            th.setDaemon(true);
-            th.start();
-
-
-            // Once finished, re-enable button.
-            typer.setOnSucceeded(test ->
-                {begin.setDisable(false);});
-            System.out.println(th.isAlive());
-        }
-
-
-        // TODO: I can suspend/unsuspend thread - maybe not the best implementation
-        // or I can pause, kill thread, store the value it was up to, and start from there
-
-
+//        begin = new Button();
+//        begin.setText("Begin");
+//        begin.setOnAction(this); // whenever clicked, use this class - see tute 2, can make custom class?
+//
+//        start = new TextField();
+//
+//
+//        StackPane layout = new StackPane(); // customise layout
+//        layout.getChildren().add(begin);
+//
+//        Scene scene = new Scene(layout, 300, 250);
+//        stage.setScene(scene);
+//        stage.show();
     }
 }
 
