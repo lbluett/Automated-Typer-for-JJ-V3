@@ -17,7 +17,7 @@ public class Functionality extends Task<Long> {
     public Functionality(int start, int end) {
         this.start = start;
         this.end = end;
-        this.start = current;
+        //this.start = current;
     }
 
     public void setStart(int start) {
@@ -30,15 +30,13 @@ public class Functionality extends Task<Long> {
 
     public void runner() {
         System.out.println(start + " " + end);
-        Robot robot = null;
+        Robot robot;
         try {
             robot = new Robot();
         } catch (AWTException e) {
             throw new RuntimeException(e); // TODO: tell user their device isn't compatible
         }
-
-        for (int i = current; i <= end; i++) {
-
+        for (int i = start; i <= end; i++) {
             typeKeys(robot, EnglishNumberToWords.convert(i));
             try {
                 Thread.sleep(1000);
@@ -46,6 +44,7 @@ public class Functionality extends Task<Long> {
                 throw new RuntimeException(e);
             }
         }
+        start++;
     }
 
     public void wait(int ms) {
@@ -91,7 +90,6 @@ public class Functionality extends Task<Long> {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("hello");
         runner();
         return null;
     }

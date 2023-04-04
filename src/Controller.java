@@ -20,7 +20,7 @@ public class Controller {
 
     public int currentPosition;
 
-    Thread th = new Thread(typer);
+    Thread th;
 
     public void startClicked() {
 
@@ -29,7 +29,7 @@ public class Controller {
             Integer.parseInt(startField.getText());
         } catch (NumberFormatException e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Start Field not Valid!");
+            errorAlert.setHeaderText("Start field not valid!");
             errorAlert.setContentText("Enter only numbers greater than 0");
             errorAlert.showAndWait();
             return;
@@ -39,7 +39,7 @@ public class Controller {
             Integer.parseInt(endField.getText());
         } catch (NumberFormatException e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("End Field not Valid!");
+            errorAlert.setHeaderText("End field not valid!");
             errorAlert.setContentText("Enter only numbers greater than 0");
             errorAlert.showAndWait();
             return;
@@ -47,26 +47,37 @@ public class Controller {
 
         if (Integer.parseInt(startField.getText()) >= Integer.parseInt(endField.getText())) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("End Field not Valid!");
+            errorAlert.setHeaderText("End field not valid!");
             errorAlert.setContentText("End Field must be grater than Start Field");
             errorAlert.showAndWait();
             return;
         }
 
+        int start = Integer.parseInt(startField.getText());
+        int end = Integer.parseInt(endField.getText());
+
 
         disableInput();
         startButton.setDisable(true);
         stopButton.setDisable(false);
-        typer = new Functionality(Integer.parseInt(startField.getText()),10);
+        currentPosition = Integer.parseInt(startField.getText());
+        typer = new Functionality(start, end);
 //        th.setName("runnerThread");
+        th = new Thread(typer);
         th.setDaemon(true);
         th.start();
 
 
+
         // Once finished, re-enable button.
         typer.setOnSucceeded(test ->
-        {startButton.setDisable(false);});
-        System.out.println(th.isAlive());
+        {
+            startButton.setDisable(false);
+            System.out.println("alive? " + th.isAlive());
+            System.out.println(start); // struggling to change variable, pass by reference?
+        });
+        System.out.println("alive? " +
+                th.isAlive());
 
 
         // TODO: I can suspend/unsuspend thread - maybe not the best implementation
@@ -74,6 +85,7 @@ public class Controller {
     }
 
     public void stopClicked() {
+        System.out.println("Stopped");
         th.interrupt();
         stopButton.setDisable(true);
         startButton.setDisable(false);

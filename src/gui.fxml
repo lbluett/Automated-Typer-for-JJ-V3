@@ -61,7 +61,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <AnchorPane fx:id="stop" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <AnchorPane fx:id="stop" maxHeight="-1.0" maxWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
                 <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                     <font>
@@ -71,8 +71,8 @@
                 <Button fx:id="startButton" defaultButton="true" layoutX="97.0" layoutY="254.0" mnemonicParsing="false" onAction="#startClicked" prefHeight="56.0" prefWidth="117.0" text="Start" />
                 <Button fx:id="stopButton" disable="true" layoutX="268.0" layoutY="254.0" mnemonicParsing="false" onAction="#stopClicked" prefHeight="56.0" prefWidth="117.0" text="Stop" />
                 <Button fx:id="cancelButton" disable="true" layoutX="439.0" layoutY="254.0" mnemonicParsing="false" onAction="#cancelClicked" prefHeight="56.0" prefWidth="117.0" text="Cancel" />
-                <TextField fx:id="startField" accessibleText="Enter the starting value, &gt;= 1." layoutX="166.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="Start" />
-                <TextField fx:id="endField" layoutX="385.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="End" />
+                <TextField fx:id="startField" accessibleText="Enter the starting value, &gt;= 1." layoutX="166.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="Start" text="1" />
+                <TextField fx:id="endField" layoutX="385.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="End" text="3" />
                 <Text layoutX="263.0" layoutY="217.0" stroke="#b21d1d" strokeType="OUTSIDE" strokeWidth="0.0" text="Twenty Five">
                     <font>
                         <Font size="21.0" />
@@ -87,10 +87,36 @@
                 <RadioButton layoutX="220.0" layoutY="68.0" mnemonicParsing="false" text="UPPER CASE" toggleGroup="$textcase" />
                 <RadioButton layoutX="335.0" layoutY="68.0" mnemonicParsing="false" text="Normal case" toggleGroup="$textcase" />
                 <RadioButton layoutX="447.0" layoutY="68.0" mnemonicParsing="false" text="lower case" toggleGroup="$textcase" />
-                <RadioButton layoutX="112.0" layoutY="111.0" mnemonicParsing="false" text="Full Stop" />
+                <RadioButton layoutX="112.0" layoutY="111.0" mnemonicParsing="false" text="Full Stop">
+               <toggleGroup>
+                  <ToggleGroup fx:id="punctuation" />
+               </toggleGroup></RadioButton>
                 <Text layoutX="20.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Case" />
                 <Text layoutX="20.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Punctuation" />
-                <RadioButton layoutX="222.0" layoutY="111.0" mnemonicParsing="false" text="Exclamation" />
+                <RadioButton layoutX="220.0" layoutY="111.0" mnemonicParsing="false" text="Exclamation" toggleGroup="$punctuation" />
+            <Text layoutX="21.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Form" />
+            <RadioButton layoutX="113.0" layoutY="147.0" mnemonicParsing="false" text="Word">
+               <toggleGroup>
+                  <ToggleGroup fx:id="form" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton layoutX="221.0" layoutY="147.0" mnemonicParsing="false" text="Number" toggleGroup="$form" />
+            <Text layoutX="326.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mode" />
+            <RadioButton layoutX="369.0" layoutY="113.0" mnemonicParsing="false" text="Jumping Jacks">
+               <toggleGroup>
+                  <ToggleGroup fx:id="punctuation1" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton layoutX="476.0" layoutY="113.0" mnemonicParsing="false" text="Hell Jacks">
+               <toggleGroup>
+                  <ToggleGroup fx:id="punctuation11" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton layoutX="556.0" layoutY="113.0" mnemonicParsing="false" text="Death Jacks">
+               <toggleGroup>
+                  <ToggleGroup fx:id="punctuation12" />
+               </toggleGroup>
+            </RadioButton>
             </children>
         </AnchorPane>
     </children>
