@@ -2,10 +2,16 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 
 import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Controller {
+
+    public ToggleButton startStop;
 
     public Button startButton;
 
@@ -58,7 +64,6 @@ public class Controller {
 
 
         disableInput();
-        startButton.setDisable(true);
         stopButton.setDisable(false);
         currentPosition = Integer.parseInt(startField.getText());
         typer = new Functionality(start, end);
@@ -67,12 +72,9 @@ public class Controller {
         th.setDaemon(true);
         th.start();
 
-
-
         // Once finished, re-enable button.
         typer.setOnSucceeded(test ->
         {
-            startButton.setDisable(false);
             System.out.println("alive? " + th.isAlive());
             System.out.println(start); // struggling to change variable, pass by reference?
         });
@@ -107,5 +109,31 @@ public class Controller {
     public void enableInput() {
         startField.setDisable(false);
         endField.setDisable(false);
+    }
+
+    public void groupLink() throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.roblox.com/groups/4088269/IT-SB-Apparel"));
+    }
+
+    public void helpLink() throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://discord.gg/jKepBd4qxY"));
+    }
+
+    public void clickStartStop() {
+        startStop.fire();
+    }
+
+    public void startStopClicked() {
+        if (startStop.isSelected()) {/
+            System.out.println("selected");
+            startStop.setSelected(false);
+            startStop.setText("Start");
+        } else {
+            System.out.println("not selected");
+            startStop.setText("Stop");
+            startStop.setSelected(true);
+            startClicked();
+
+        }
     }
 }

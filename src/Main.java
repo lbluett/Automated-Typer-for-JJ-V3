@@ -1,45 +1,58 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeHookException;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
 import java.awt.*;
 import java.io.IOException;
 
-public class Main extends Application {
+
+public class Main extends Application implements NativeKeyListener {
     Button begin;
     TextField start;
     Functionality typer;
 
+    ToggleButton startStop;
+
+
+
+
     public static void main(String[] args) throws InterruptedException {
+
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("gui.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui.fxml"));
+        Parent root = loader.load();
+        Controller controller = loader.getController();
+
+
 
         stage.setTitle("JJBotv3 by InfamousTurtle");
-        stage.setScene(new Scene(root, 600,400));
+
+
+        stage.setScene(new Scene(root, 600, 500));
         stage.show();
-//        begin = new Button();
-//        begin.setText("Begin");
-//        begin.setOnAction(this); // whenever clicked, use this class - see tute 2, can make custom class?
-//
-//        start = new TextField();
-//
-//
-//        StackPane layout = new StackPane(); // customise layout
-//        layout.getChildren().add(begin);
-//
-//        Scene scene = new Scene(layout, 300, 250);
-//        stage.setScene(scene);
-//        stage.show();
+
+        KeyListener listener = new KeyListener(controller);
+        listener.registerKeyListener();
+
     }
 }
 
