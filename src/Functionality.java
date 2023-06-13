@@ -1,5 +1,7 @@
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 
+import javax.naming.ldap.Control;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -13,19 +15,15 @@ public class Functionality extends Task<Long> {
     private int start;
     private int end;
 
-    private int current; // Used to measure the current? Kill thread, resume from current?
-    public Functionality(int start, int end) {
+    private int delay;
+    private int pos;
+
+    Controller controller;
+    public Functionality(int start, int end, int delay, Controller controller, UserSettings settings) {
         this.start = start;
         this.end = end;
-        //this.start = current;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public void setEnd(int end) {
-        this.end = end;
+        this.controller = controller;
+        this.delay = delay;
     }
 
     public void runner() {
@@ -36,15 +34,13 @@ public class Functionality extends Task<Long> {
         } catch (AWTException e) {
             throw new RuntimeException(e); // TODO: tell user their device isn't compatible
         }
-        for (int i = start; i <= end; i++) {
-            typeKeys(robot, EnglishNumberToWords.convert(i));
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+
+        pos = start; // Position
+        for (; (pos <= end && !isCancelled()); pos++) {
+            System.out.println("here!!");
+            typeKeys(robot, EnglishNumberToWords.convert(pos)); // Type keys
+            System.out.println(pos);
         }
-        start++;
     }
 
     public void wait(int ms) {
@@ -64,33 +60,43 @@ public class Functionality extends Task<Long> {
         robot.keyPress(KeyEvent.VK_SLASH);
         robot.keyRelease(KeyEvent.VK_SLASH);
 
-        wait(1000);
+        wait(1000 + text.length() * delay);
 
         robot.keyPress(KeyEvent.VK_CONTROL); // TODO: Mac Friendly VK_MISC
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
 
-        wait(1000);
+        wait(50);
 
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
 
-        wait(1000);
+        wait(50);
 
         robot.keyPress(KeyEvent.VK_SPACE);
-        wait(100);
+        wait(50);
         robot.keyRelease(KeyEvent.VK_SPACE);
     }
 
     @Override
     protected Long call() throws Exception {
         try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            runner();
+        } finally {
+            System.out.println("I'm ending!");
+            if (pos < end) {
+                System.out.println(" PREMATURELY!");
+                Platform.runLater(() -> {
+                    controller.setCurrentPosition(pos);
+                });
+            }
         }
-        runner();
         return null;
     }
 }

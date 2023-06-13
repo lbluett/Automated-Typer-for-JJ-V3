@@ -23,8 +23,7 @@ public class KeyListener implements NativeKeyListener {
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
         Platform.runLater(() -> {
         if (nativeEvent.getKeyCode() == NativeKeyEvent.VC_F8) {
-            System.out.println("pressed");
-            controller.startStopClicked();
+            controller.hotkeyPressed();
         }
         });
     }
