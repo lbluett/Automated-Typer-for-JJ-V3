@@ -45,28 +45,41 @@ public class Controller {
             try {
                 Integer.parseInt(startField.getText());
             } catch (NumberFormatException e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("Start field not valid!");
-                errorAlert.setContentText("Enter only numbers greater than 0");
-                errorAlert.showAndWait();
+                handleInputError(startField);
+                return;
+            }
+
+            try {
+                Integer.parseInt(delayField.getText());
+            } catch (NumberFormatException e) {
+                handleInputError(delayField);
                 return;
             }
 
             try {
                 Integer.parseInt(endField.getText());
             } catch (NumberFormatException e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("End field not valid!");
-                errorAlert.setContentText("Enter only numbers greater than 0");
-                errorAlert.showAndWait();
+                handleInputError(endField);
+                return;
+            }
+
+            if (Integer.parseInt(startField.getText()) < 0) {
+                handleInputError(startField);
+                return;
+            }
+
+            if (Integer.parseInt(endField.getText()) < 0) {
+                handleInputError(endField);
+                return;
+            }
+
+            if (Integer.parseInt(delayField.getText()) < 0) {
+                handleInputError(delayField);
                 return;
             }
 
             if (Integer.parseInt(startField.getText()) >= Integer.parseInt(endField.getText())) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("End field not valid!");
-                errorAlert.setContentText("End Field must be grater than Start Field");
-                errorAlert.showAndWait();
+                handleInputError(endField);
                 return;
             }
             end = Integer.parseInt(endField.getText());
@@ -99,6 +112,8 @@ public class Controller {
         firstRun = true;
         startStop.setText("Start (F8)");
         enableInput();
+        cancelButton.setDisable(true);
+        startStop.setSelected(false);
     }
 
     public void disableInput() {
@@ -189,14 +204,11 @@ public class Controller {
     }
 
     public void handleInputError(TextField input) {
-        try {
-            Integer.parseInt(input.getText());
-        } catch (NumberFormatException e) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText(input.getText() + " field not valid!");
-            errorAlert.setContentText("Enter only numbers greater than or equal to 0");
-            errorAlert.showAndWait();
-            cancelClicked();
-        }
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("\"" + input.getText() +"\" is not a valid input!");
+        errorAlert.setContentText("Enter only numbers greater than or equal to 0. Start must be less than end!");
+        errorAlert.showAndWait();
+        cancelClicked();
+        startStop.setSelected(false);
     }
 }
