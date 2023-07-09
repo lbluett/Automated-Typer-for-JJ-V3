@@ -1,8 +1,9 @@
+package com.infamous.jjbot;
+
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -133,6 +134,7 @@ public class Controller {
         deathToggl.setDisable(true);
         jumpToggl.setDisable(true);
         cheerToggl.setDisable(true);
+        delayField.setDisable(true);
     }
 
     public void enableInput() {
@@ -152,6 +154,7 @@ public class Controller {
         deathToggl.setDisable(false);
         jumpToggl.setDisable(false);
         cheerToggl.setDisable(false);
+        delayField.setDisable(false);
     }
 
     public void groupLink() throws URISyntaxException, IOException {

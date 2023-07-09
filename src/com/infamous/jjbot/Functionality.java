@@ -1,12 +1,14 @@
+package com.infamous.jjbot;
+
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 
-import javax.naming.ldap.Control;
+
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
-import java.util.Objects;
+
 
 public class Functionality extends Task<Long> {
     // Here we will add the variables that the user has set

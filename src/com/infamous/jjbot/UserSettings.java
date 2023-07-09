@@ -1,3 +1,5 @@
+package com.infamous.jjbot;
+
 import javafx.scene.control.Toggle;
 
 

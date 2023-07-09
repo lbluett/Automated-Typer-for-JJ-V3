@@ -1,4 +1,6 @@
- import java.text.DecimalFormat;
+package com.infamous.jjbot;
+
+import java.text.DecimalFormat;
 
 public class EnglishNumberToWords {
 
