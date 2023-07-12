@@ -2,8 +2,6 @@ package com.infamous.jjbot;
 
 import javafx.scene.control.Toggle;
 
-
-
 public class UserSettings {
     // Defining  all of the settings buttons
     public Toggle camelToggl;

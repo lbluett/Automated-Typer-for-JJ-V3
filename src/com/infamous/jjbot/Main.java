@@ -21,7 +21,7 @@ public class Main extends Application implements NativeKeyListener {
     public void start(Stage stage) throws Exception {
 
         // Set your expiration date in the format Year-Month-Day
-        String expirationDate = "2023-07-08";
+        String expirationDate = "2023-07-20";
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate expireDate = LocalDate.parse(expirationDate, formatter);
@@ -43,7 +43,7 @@ public class Main extends Application implements NativeKeyListener {
                     "https://discord.gg/jKepBd4qxY");
             errorAlert.showAndWait();
         } else {
-            stage.setTitle("JJBotv3 by InfamousTurtle");
+            stage.setTitle("JJBotv3 by InfamousTurtle - BETA Version");
             KeyListener listener = new KeyListener(controller);
             listener.registerKeyListener();
         }

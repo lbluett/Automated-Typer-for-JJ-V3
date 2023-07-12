@@ -2,8 +2,6 @@ package com.infamous.jjbot;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-
-
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
