@@ -7,4 +7,6 @@ module com.infamous.jjbot {
 
     // Export the package to javafx.graphics
     exports com.infamous.jjbot to javafx.graphics, javafx.fxml;
+
+    opens com.infamous.jjbot to javafx.fxml;
 }
