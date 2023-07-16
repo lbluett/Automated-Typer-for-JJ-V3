@@ -2,6 +2,8 @@ package com.infamous.jjbot;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.control.Alert;
+
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -15,7 +17,6 @@ public class Functionality extends Task<Long> {
 
     private int start;
     private int end;
-
     private int delay;
     private int pos;
     private UserSettings settings;
@@ -40,6 +41,7 @@ public class Functionality extends Task<Long> {
 
         pos = start; // Position
         for (; (pos <= end && !isCancelled()); pos++) {
+            // Get the number we're currently at, and apply punctuation and case settings.
             String input = settings.applyCase(settings.applyPunctuation(EnglishNumberToWords.convert(pos)));
 
             // If settings.getMode() returns "hell", then iterate through each character and put it through typeKeys
@@ -88,48 +90,58 @@ public class Functionality extends Task<Long> {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, stringSelection);
 
-
-        // Paste the clipboard.
-        robot.keyPress(KeyEvent.VK_SLASH);
-        robot.keyRelease(KeyEvent.VK_SLASH);
-
-        // Simulate typing time
-        wait(1000 + text.length() * delay);
-
-        robot.keyPress(KeyEvent.VK_CONTROL); // TODO: Mac Friendly VK_MISC
-        robot.keyPress(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-
-        wait(100);
-
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
-
-        wait(100);
-
-        if (settings.getAction().equals("cheer")) {
-            stringSelection = new StringSelection("/e cheer");
-            clipboard.setContents(stringSelection, stringSelection);
+        try {
+            // Paste the clipboard.
             robot.keyPress(KeyEvent.VK_SLASH);
             robot.keyRelease(KeyEvent.VK_SLASH);
-            wait(400);
-            robot.keyPress(KeyEvent.VK_CONTROL);
+
+            // Simulate typing time
+            wait(1000 + text.length() * delay);
+
+            robot.keyPress(KeyEvent.VK_CONTROL); // TODO: Mac Friendly VK_MISC
             robot.keyPress(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_CONTROL);
+
             wait(100);
+
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
-        } else {
-            robot.keyPress(KeyEvent.VK_SPACE);
-            wait(50);
-            robot.keyRelease(KeyEvent.VK_SPACE);
+
+            wait(100);
+
+            if (settings.getAction().equals("cheer")) {
+                stringSelection = new StringSelection("/e cheer");
+                clipboard.setContents(stringSelection, stringSelection);
+                robot.keyPress(KeyEvent.VK_SLASH);
+                robot.keyRelease(KeyEvent.VK_SLASH);
+                wait(400);
+                robot.keyPress(KeyEvent.VK_CONTROL);
+                robot.keyPress(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_V);
+                robot.keyRelease(KeyEvent.VK_CONTROL);
+                wait(100);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+            } else {
+                robot.keyPress(KeyEvent.VK_SPACE);
+                wait(50);
+                robot.keyRelease(KeyEvent.VK_SPACE);
+            }
+        } catch (IllegalArgumentException e) {
+            // Keyboard probably not compatible
+            Platform.runLater(() -> {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("Oops! Use an English Keyboard!");
+                errorAlert.setContentText("This program only works with an English keyboard! Join the discord for help: " +
+                        "https://discord.gg/jKepBd4qxY");
+                errorAlert.showAndWait();
+                System.exit(42);
+            });
         }
     }
-
     @Override
-    protected Long call() throws Exception {
+    protected Long call() {
         try {
             try {
                 Thread.sleep(1000);

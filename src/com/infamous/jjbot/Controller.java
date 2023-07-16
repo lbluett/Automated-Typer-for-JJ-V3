@@ -198,12 +198,15 @@ public class Controller {
         currentPosition = newCurrent;
     }
 
+    /**
+     * Updates the preview.
+     */
     public void updatePreview() {
         UserSettings settings = new UserSettings(camelToggl, upperToggl, normalCaseToggl, lowerToggl, nonePuncToggl,
                 exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl);
 
         preview.setText(settings.applyPunctuation(PREVIEW_STRING));
-        preview.setText(settings.applyCase(PREVIEW_STRING));
+        preview.setText(settings.applyCase(preview.getText()));
     }
 
     public void handleInputError(TextField input) {
