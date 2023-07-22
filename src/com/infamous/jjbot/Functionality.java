@@ -86,18 +86,19 @@ public class Functionality extends Task<Long> {
     }
 
     public void typeKeys(Robot robot, String text) {
-        StringSelection stringSelection = new StringSelection(text);
+        StringSelection textOutput = new StringSelection(text);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(stringSelection, stringSelection);
+        clipboard.setContents(textOutput, textOutput);
 
         try {
-            // Paste the clipboard.
+            // Open chat
             robot.keyPress(KeyEvent.VK_SLASH);
             robot.keyRelease(KeyEvent.VK_SLASH);
 
             // Simulate typing time
             wait(1000 + text.length() * delay);
 
+            // Paste text
             robot.keyPress(KeyEvent.VK_CONTROL); // TODO: Mac Friendly VK_MISC
             robot.keyPress(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_V);
@@ -105,24 +106,32 @@ public class Functionality extends Task<Long> {
 
             wait(100);
 
+            // Send message
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
+            System.out.println("Numbered");
 
             wait(100);
 
+            // Jump or cheer
             if (settings.getAction().equals("cheer")) {
-                stringSelection = new StringSelection("/e cheer");
-                clipboard.setContents(stringSelection, stringSelection);
+                StringSelection stringSelection = new StringSelection("/e cheer");
+                Clipboard clipboard2 = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard2.setContents(stringSelection, stringSelection);
+
                 robot.keyPress(KeyEvent.VK_SLASH);
                 robot.keyRelease(KeyEvent.VK_SLASH);
                 wait(400);
                 robot.keyPress(KeyEvent.VK_CONTROL);
                 robot.keyPress(KeyEvent.VK_V);
+                wait(100);
                 robot.keyRelease(KeyEvent.VK_V);
                 robot.keyRelease(KeyEvent.VK_CONTROL);
                 wait(100);
                 robot.keyPress(KeyEvent.VK_ENTER);
                 robot.keyRelease(KeyEvent.VK_ENTER);
+                System.out.println("Cheered!");
+                wait(500);
             } else {
                 robot.keyPress(KeyEvent.VK_SPACE);
                 wait(50);
@@ -132,7 +141,7 @@ public class Functionality extends Task<Long> {
             // Keyboard probably not compatible
             Platform.runLater(() -> {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("Oops! Use an English Keyboard!");
+                errorAlert.setHeaderText("Oops! Use a English (US) Keyboard!");
                 errorAlert.setContentText("This program only works with an English keyboard! Join the discord for help: " +
                         "https://discord.gg/jKepBd4qxY");
                 errorAlert.showAndWait();
