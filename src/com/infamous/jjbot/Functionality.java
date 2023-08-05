@@ -15,11 +15,11 @@ public class Functionality extends Task<Long> {
     // Write a method that updates the variable when element is changed on gui? I suppose
     // this will be called on the gui side when var is changed if there is not a simpler way.
 
-    private int start;
-    private int end;
-    private int delay;
+    private final int start;
+    private final int end;
+    private final int delay;
     private int pos;
-    private UserSettings settings;
+    private final UserSettings settings;
 
     Controller controller;
     public Functionality(int start, int end, int delay, Controller controller, UserSettings settings) {
@@ -58,7 +58,7 @@ public class Functionality extends Task<Long> {
             // If settings.getMode() returns "death", then iterate through each character backwards and put it through typeKeys
             if (settings.getMode().equals("death")) {
                 for (int i = input.length() - 1; i >= 0; i--) {
-                    if (input.charAt(i) == '.' || input.charAt(i) == '!') {
+                    if ((settings.includePunct.isSelected()) && (input.charAt(i) == '.' || input.charAt(i) == '!')) {
                         continue;
                     }
                     typeKeys(robot, input.substring(i, i + 1));

@@ -1,5 +1,6 @@
 package com.infamous.jjbot;
 
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Toggle;
 
 public class UserSettings {
@@ -16,10 +17,11 @@ public class UserSettings {
     public Toggle deathToggl;
     public Toggle jumpToggl;
     public Toggle cheerToggl;
+    public CheckBox includePunct;
 
     public UserSettings(Toggle camelToggl, Toggle upperToggl, Toggle normalCaseToggl, Toggle lowerToggl,
                         Toggle nonePuncToggl, Toggle exclamationToggl, Toggle fullStopToggl, Toggle normalToggl,
-                        Toggle hellToggl, Toggle deathToggl, Toggle jumpToggl, Toggle cheerToggl) {
+                        Toggle hellToggl, Toggle deathToggl, Toggle jumpToggl, Toggle cheerToggl, CheckBox includePunct) {
         this.camelToggl = camelToggl;
         this.upperToggl = upperToggl;
         this.normalCaseToggl = normalCaseToggl;
@@ -32,6 +34,7 @@ public class UserSettings {
         this.deathToggl = deathToggl;
         this.jumpToggl = jumpToggl;
         this.cheerToggl = cheerToggl;
+        this.includePunct = includePunct;
     }
 
     public String getAction() {

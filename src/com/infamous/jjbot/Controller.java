@@ -30,6 +30,7 @@ public class Controller {
     public TextField startField;
     public TextField endField;
     public TextField delayField;
+    public CheckBox includePunct;
     Functionality typer;
 
     private int currentPosition;
@@ -91,7 +92,7 @@ public class Controller {
         cancelButton.setDisable(true);
 
         UserSettings settings = new UserSettings(camelToggl, upperToggl, normalCaseToggl, lowerToggl, nonePuncToggl,
-                exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl);
+                exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl, includePunct);
 
         firstRun = false;
         System.out.println(currentPosition);
@@ -135,6 +136,7 @@ public class Controller {
         jumpToggl.setDisable(true);
         cheerToggl.setDisable(true);
         delayField.setDisable(true);
+        includePunct.setDisable(true);
     }
 
     public void enableInput() {
@@ -155,6 +157,8 @@ public class Controller {
         jumpToggl.setDisable(false);
         cheerToggl.setDisable(false);
         delayField.setDisable(false);
+        includePunct.setDisable(false);
+        updatePreview();
     }
 
     public void groupLink() throws URISyntaxException, IOException {
@@ -203,10 +207,12 @@ public class Controller {
      */
     public void updatePreview() {
         UserSettings settings = new UserSettings(camelToggl, upperToggl, normalCaseToggl, lowerToggl, nonePuncToggl,
-                exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl);
+                exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl, includePunct);
 
         preview.setText(settings.applyPunctuation(PREVIEW_STRING));
         preview.setText(settings.applyCase(preview.getText()));
+        includePunct.setDisable(true);
+        includePunct.setDisable(!deathToggl.isSelected());
     }
 
     public void handleInputError(TextField input) {
