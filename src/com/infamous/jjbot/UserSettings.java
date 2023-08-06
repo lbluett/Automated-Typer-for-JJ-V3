@@ -18,10 +18,12 @@ public class UserSettings {
     public Toggle jumpToggl;
     public Toggle cheerToggl;
     public CheckBox includePunct;
+    CheckBox robloxChat;
 
     public UserSettings(Toggle camelToggl, Toggle upperToggl, Toggle normalCaseToggl, Toggle lowerToggl,
                         Toggle nonePuncToggl, Toggle exclamationToggl, Toggle fullStopToggl, Toggle normalToggl,
-                        Toggle hellToggl, Toggle deathToggl, Toggle jumpToggl, Toggle cheerToggl, CheckBox includePunct) {
+                        Toggle hellToggl, Toggle deathToggl, Toggle jumpToggl, Toggle cheerToggl, CheckBox includePunct,
+                        CheckBox robloxChat) {
         this.camelToggl = camelToggl;
         this.upperToggl = upperToggl;
         this.normalCaseToggl = normalCaseToggl;
@@ -35,6 +37,7 @@ public class UserSettings {
         this.jumpToggl = jumpToggl;
         this.cheerToggl = cheerToggl;
         this.includePunct = includePunct;
+        this.robloxChat = robloxChat;
     }
 
     public String getAction() {

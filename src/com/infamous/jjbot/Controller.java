@@ -31,6 +31,7 @@ public class Controller {
     public TextField endField;
     public TextField delayField;
     public CheckBox includePunct;
+    public CheckBox robloxChat;
     Functionality typer;
 
     private int currentPosition;
@@ -92,7 +93,8 @@ public class Controller {
         cancelButton.setDisable(true);
 
         UserSettings settings = new UserSettings(camelToggl, upperToggl, normalCaseToggl, lowerToggl, nonePuncToggl,
-                exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl, includePunct);
+                exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl, includePunct,
+                robloxChat);
 
         firstRun = false;
         System.out.println(currentPosition);
@@ -207,7 +209,8 @@ public class Controller {
      */
     public void updatePreview() {
         UserSettings settings = new UserSettings(camelToggl, upperToggl, normalCaseToggl, lowerToggl, nonePuncToggl,
-                exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl, includePunct);
+                exclamationToggl, fullStopToggl, normalToggl, hellToggl, deathToggl, jumpToggl, cheerToggl, includePunct,
+                robloxChat);
 
         preview.setText(settings.applyPunctuation(PREVIEW_STRING));
         preview.setText(settings.applyCase(preview.getText()));

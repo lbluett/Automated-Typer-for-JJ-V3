@@ -58,7 +58,7 @@ public class Functionality extends Task<Long> {
             // If settings.getMode() returns "death", then iterate through each character backwards and put it through typeKeys
             if (settings.getMode().equals("death")) {
                 for (int i = input.length() - 1; i >= 0; i--) {
-                    if ((settings.includePunct.isSelected()) && (input.charAt(i) == '.' || input.charAt(i) == '!')) {
+                    if ((!settings.includePunct.isSelected()) && (input.charAt(i) == '.' || input.charAt(i) == '!')) {
                         continue;
                     }
                     typeKeys(robot, input.substring(i, i + 1));
@@ -92,8 +92,10 @@ public class Functionality extends Task<Long> {
 
         try {
             // Open chat
-            robot.keyPress(KeyEvent.VK_SLASH);
-            robot.keyRelease(KeyEvent.VK_SLASH);
+            if (true && settings.robloxChat.isSelected()) {
+                robot.keyPress(KeyEvent.VK_SLASH);
+                robot.keyRelease(KeyEvent.VK_SLASH);
+            }
 
             // Simulate typing time
             wait(1000 + text.length() * delay);
@@ -114,28 +116,30 @@ public class Functionality extends Task<Long> {
             wait(100);
 
             // Jump or cheer
-            if (settings.getAction().equals("cheer")) {
-                StringSelection stringSelection = new StringSelection("/e cheer");
-                Clipboard clipboard2 = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard2.setContents(stringSelection, stringSelection);
+            if (settings.robloxChat.isSelected()) {
+                if (settings.getAction().equals("cheer")) {
+                    StringSelection stringSelection = new StringSelection("/e cheer");
+                    Clipboard clipboard2 = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard2.setContents(stringSelection, stringSelection);
 
-                robot.keyPress(KeyEvent.VK_SLASH);
-                robot.keyRelease(KeyEvent.VK_SLASH);
-                wait(400);
-                robot.keyPress(KeyEvent.VK_CONTROL);
-                robot.keyPress(KeyEvent.VK_V);
-                wait(100);
-                robot.keyRelease(KeyEvent.VK_V);
-                robot.keyRelease(KeyEvent.VK_CONTROL);
-                wait(100);
-                robot.keyPress(KeyEvent.VK_ENTER);
-                robot.keyRelease(KeyEvent.VK_ENTER);
-                System.out.println("Cheered!");
-                wait(500);
-            } else {
-                robot.keyPress(KeyEvent.VK_SPACE);
-                wait(50);
-                robot.keyRelease(KeyEvent.VK_SPACE);
+                    robot.keyPress(KeyEvent.VK_SLASH);
+                    robot.keyRelease(KeyEvent.VK_SLASH);
+                    wait(400);
+                    robot.keyPress(KeyEvent.VK_CONTROL);
+                    robot.keyPress(KeyEvent.VK_V);
+                    wait(100);
+                    robot.keyRelease(KeyEvent.VK_V);
+                    robot.keyRelease(KeyEvent.VK_CONTROL);
+                    wait(100);
+                    robot.keyPress(KeyEvent.VK_ENTER);
+                    robot.keyRelease(KeyEvent.VK_ENTER);
+                    System.out.println("Cheered!");
+                    wait(500);
+                } else {
+                    robot.keyPress(KeyEvent.VK_SPACE);
+                    wait(50);
+                    robot.keyRelease(KeyEvent.VK_SPACE);
+                }
             }
         } catch (IllegalArgumentException e) {
             // Keyboard probably not compatible
@@ -147,6 +151,8 @@ public class Functionality extends Task<Long> {
                 errorAlert.showAndWait();
                 System.exit(42);
             });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     @Override

@@ -65,7 +65,7 @@ public class Main extends Application implements NativeKeyListener {
 //            errorAlert.setHeaderText("BETA Trial Expired");
 //            errorAlert.setContentText("The BETA trial has expired, join the discord for more info: " +
 //                    "https://discord.gg/jKepBd4qxY");
-//            errorAlert.showAndWait();
+//            errorAleert.showAndWait();
 //        }
 
         stage.setTitle("JJBotv3 by InfamousTurtle");

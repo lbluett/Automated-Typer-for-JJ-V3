@@ -73,12 +73,12 @@
                 <Button fx:id="cancelButton" disable="true" layoutX="432.0" layoutY="363.0" mnemonicParsing="false" onAction="#cancelClicked" prefHeight="56.0" prefWidth="117.0" text="Cancel" />
                 <TextField fx:id="startField" accessibleText="Enter the starting value, &gt;= 1." layoutX="92.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="Start" text="1" />
                 <TextField fx:id="endField" layoutX="231.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="End" text="3" />
-                <Text fx:id="preview" layoutY="311.0" stroke="#b21d1d" strokeType="OUTSIDE" strokeWidth="0.0" text="One hundred twenty five" textAlignment="CENTER" wrappingWidth="640.0">
+                <Text fx:id="preview" layoutY="328.0" stroke="#b21d1d" strokeType="OUTSIDE" strokeWidth="0.0" text="One hundred twenty five" textAlignment="CENTER" wrappingWidth="640.0">
                     <font>
                         <Font size="21.0" />
                     </font>
                 </Text>
-                <Text layoutX="300.0" layoutY="284.0" opacity="0.3" strokeType="OUTSIDE" strokeWidth="0.0" text="Preview" />
+                <Text layoutX="300.0" layoutY="301.0" opacity="0.3" strokeType="OUTSIDE" strokeWidth="0.0" text="Preview" />
                 <RadioButton id="camelCase" fx:id="camelToggl" layoutX="335.0" layoutY="92.0" mnemonicParsing="false" onAction="#updatePreview" text="Camel Case">
                <toggleGroup>
                   <ToggleGroup fx:id="textCase" />
@@ -115,7 +115,9 @@
             <Text layoutX="203.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End" />
             <TextField fx:id="delayField" layoutX="428.0" layoutY="25.0" prefHeight="24.0" prefWidth="96.0" promptText="End" text="100" />
             <Text layoutX="341.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delay (ms/char)" />
-            <CheckBox fx:id="includePunct" disable="true" layoutX="432.0" layoutY="170.0" mnemonicParsing="false" text="Include Puncutation?" />
+            <CheckBox fx:id="includePunct" disable="true" layoutX="432.0" layoutY="170.0" mnemonicParsing="false" text="Include Puncutation" />
+            <Text layoutX="18.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chat" />
+            <CheckBox fx:id="robloxChat" layoutX="111.0" layoutY="238.0" mnemonicParsing="false" selected="true" text="ROBLOX Chat" />
             </children>
         </AnchorPane>
     </children>
