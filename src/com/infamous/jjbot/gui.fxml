@@ -118,6 +118,7 @@
             <CheckBox fx:id="includePunct" disable="true" layoutX="432.0" layoutY="170.0" mnemonicParsing="false" text="Include Puncutation" />
             <Text layoutX="18.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chat" />
             <CheckBox fx:id="robloxChat" layoutX="111.0" layoutY="238.0" mnemonicParsing="false" selected="true" text="ROBLOX Chat" />
+            <Text fill="#8d8d8d" layoutX="9.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="v1.2" />
             </children>
         </AnchorPane>
     </children>
