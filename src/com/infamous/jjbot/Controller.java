@@ -187,14 +187,15 @@ public class Controller {
 
     public void startStopClicked() {
         if (startStop.isSelected()) {
+            // If start is pressed.
             startStop.setText("Stop (F8)");
             startClicked();
         } else {
-            typer.cancel();
+            typer.cancel(); // Kill the typer thread - we will collect its data and start from where it stopped.
             if (firstRun) {
-                startStop.setText("Start (F8)");
+                startStop.setText("Start (F8)"); // If the user hasn't paused before.
             } else {
-                startStop.setText("Resume (F8)");
+                startStop.setText("Resume (F8)"); // If the user has paused.
             }
             cancelButton.setDisable(false);
         }
@@ -214,8 +215,9 @@ public class Controller {
 
         preview.setText(settings.applyPunctuation(PREVIEW_STRING));
         preview.setText(settings.applyCase(preview.getText()));
-        includePunct.setDisable(true);
-        includePunct.setDisable(!deathToggl.isSelected());
+        // Only enable include punctuation toggl when conditions met.
+        includePunct.setDisable((!deathToggl.isSelected() && !hellToggl.isSelected()) ||
+                (!exclamationToggl.isSelected() && !fullStopToggl.isSelected()));
     }
 
     public void handleInputError(TextField input) {

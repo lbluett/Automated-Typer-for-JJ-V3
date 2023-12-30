@@ -46,9 +46,9 @@ public class Functionality extends Task<Long> {
 
             // If settings.getMode() returns "hell", then iterate through each character and put it through typeKeys
             if (settings.getMode().equals("hell")) {
-                for (int i = 0; i < input.length(); i++) {
+                for (int i = 0; i < input.length() && !isCancelled(); i++) {
                     // Skip punctuation
-                    if (input.charAt(i) == '.' || input.charAt(i) == '!') {
+                    if ((!settings.includePunct.isSelected()) && (input.charAt(i) == '.' || input.charAt(i) == '!')) {
                         continue;
                     }
                     typeKeys(robot, input.substring(i, i + 1));
@@ -57,12 +57,16 @@ public class Functionality extends Task<Long> {
 
             // If settings.getMode() returns "death", then iterate through each character backwards and put it through typeKeys
             if (settings.getMode().equals("death")) {
-                for (int i = input.length() - 1; i >= 0; i--) {
+                for (int i = input.length() - 1; i >= 0 && !isCancelled(); i--) {
                     if ((!settings.includePunct.isSelected()) && (input.charAt(i) == '.' || input.charAt(i) == '!')) {
                         continue;
                     }
                     typeKeys(robot, input.substring(i, i + 1));
                 }
+            }
+
+            if (isCancelled()) {
+                break;
             }
 
             if (settings.getMode().equals("death")) {
@@ -72,6 +76,7 @@ public class Functionality extends Task<Long> {
                 input = inputBuilder.toString();
                 typeKeys(robot, input);
             } else {
+                // Will type the whole word, including for hell jacks.
                 typeKeys(robot, input);
             }
         }
@@ -92,7 +97,7 @@ public class Functionality extends Task<Long> {
 
         try {
             // Open chat
-            if (true && settings.robloxChat.isSelected()) {
+            if (settings.robloxChat.isSelected()) {
                 robot.keyPress(KeyEvent.VK_SLASH);
                 robot.keyRelease(KeyEvent.VK_SLASH);
             }
@@ -168,9 +173,7 @@ public class Functionality extends Task<Long> {
             System.out.println("I'm ending!");
             if (pos < end) {
                 System.out.println(" PREMATURELY!");
-                Platform.runLater(() -> {
-                    controller.setCurrentPosition(pos);
-                });
+                Platform.runLater(() -> controller.setCurrentPosition(pos));
             }
         }
         return null;
